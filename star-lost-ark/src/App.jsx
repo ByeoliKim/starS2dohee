@@ -21,35 +21,52 @@ function App() {
   const { data: chaData } = useQuery({
     queryKey : ['chaData', searchName],
     queryFn: () => getChaData(searchName),
+    refetchOnWindowFocus: false,
   })
+
+  console.log(chaData);
 
   return (
     <Layout>
-      <main>
-          <div className="main-wrap">
+      <main className="h-svh">
+          <div className="main-wrap flex flex-col py-10">
 
-            <input 
-              placeholder="모험가님의 캐릭터를 입력해 주세요!"
-              onChange={(e) => {
-                setChaName(e.target.value);
-                console.log(chaName);
-              }}
-              value={chaName}
-              onKeyDown={(e) => {
-                if(e.key === 'Enter') {
-                  handleSearch();
-                }
-              }}
-            />
-            <button 
-              onClick={handleSearch}
-            >검색</button>
+            <div className="flex justify-center items-center"><img src="/i0929676129.gif" /></div>
+            <div 
+              className="flex justify-center items-center h-20 my-10"
+            >
+              <input 
+                className="p-5 w-3/12 h-full bg-white text-black font-6xl"
+                placeholder="모험가님의 캐릭터를 입력해 주세요!"
+                onChange={(e) => {
+                  setChaName(e.target.value);
+                  // console.log(chaName);
+                }}
+                value={chaName}
+                onKeyDown={(e) => {
+                  if(e.key === 'Enter') {
+                    handleSearch();
+                  }
+                }}
+              />
+              <button
+                className="px-10 h-full bg-[#656565] text-white"
+                onClick={handleSearch}
+              >검색</button>
+            </div>
 
-            {chaData ? <h2 className="underline">{chaData.data.CharacterName} 님은 십로악귀세요.</h2> : ""}
-            {chaData ? <img src={chaData.data.CharacterImage} /> : <div>없어용 ㅠㅠ</div>}
-            <h1 className="text-2xl font-bold underline">
-              Hello world!
-            </h1>
+            {chaData ?
+              <>
+              <section className="flex justify-center items-center my-20 tracking-tighter">
+              <div className="mr-40"><img src={chaData.data.CharacterImage} /></div>
+              <div className="flex justify-center items-top pr-10">
+                <h3 className="text-red-500 text-6xl font-bold">{chaData.data.CharacterClassName}</h3><h4 className="text-cyan-400 text-6xl font-bold">{chaData.data.CharacterName}</h4><h5 className="text-yellow-400 text-levelSize font-bold">{chaData.data.ItemAvgLevel} </h5>
+              </div>
+              </section>
+              </>
+              :
+              ""
+            }
           </div>
       </main>
     </Layout>
