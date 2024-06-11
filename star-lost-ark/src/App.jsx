@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "./Components/Layout";
-import { getChaData } from "./services"
+import { getChaData, getEquData } from "./services"
 import { useQuery } from "react-query"
 
 function App() {
@@ -14,24 +14,32 @@ function App() {
   const [chaName, setChaName] = useState('');
   const [searchName, setSearchName] = useState('');
 
-  const handleSearch = () => {
-    setSearchName(chaName);
-  }
-
   const { data: chaData } = useQuery({
     queryKey : ['chaData', searchName],
     queryFn: () => getChaData(searchName),
     refetchOnWindowFocus: false,
   })
 
-  console.log(chaData);
+  const { data: eqData } = useQuery({
+    queryKey: ['eqData', searchName],
+    queryFn: () => getEquData(searchName),
+    refetchOnWindowFocus: false,
+  })
+
+  const handleSearch = () => {
+    setSearchName(chaName);
+  }
+
+  console.log(eqData);
 
   return (
     <Layout>
       <main className="h-[1500px] pb-40">
           <div className="main-wrap flex flex-col py-10">
 
-            <div className="flex justify-center items-center"><img src="/i0929676129.gif" /></div>
+            <div className="flex justify-center items-center">
+              {/* <img src="/i0929676129.gif" /> */}
+            </div>
             <div 
               className="flex justify-center items-center h-20 my-10"
             >
@@ -57,6 +65,8 @@ function App() {
 
             {chaData ?
               <>
+              <p className="text-center text-levelSize">
+              {chaData.data.ServerName}에서 {chaData.data.CharacterClassName} 키우는 {chaData.data.CharacterName} 님은 로악귀세요 🥵💧💧💧</p>
               <section className="flex justify-center items-center my-20 tracking-tighter bg-[#15181d] py-20 my-0 mx-auto">
               <div className="mr-40 w-[500px] h-[578px] overflow-hidden rounded-lg"><img className="w-full h-full" src={chaData.data.CharacterImage} /></div>
               <div className="flex justify-center items-top pr-10">
@@ -67,6 +77,16 @@ function App() {
               :
               ""
             }
+            <div className="flex">
+            {
+              eqData ?
+              (
+                eqData.data.map((i, index) => {
+                    return <p>{i.Tooltip}</p>
+                })
+              ) : ""
+            }
+            </div>
           </div>
       </main>
     </Layout>
