@@ -15,7 +15,7 @@ export default {
         '5xl': '3.052rem',
         '6xl': '4.2rem',
         'levelSize': '40px'
-      }
+      },
     },
     plugins: [],
 }
