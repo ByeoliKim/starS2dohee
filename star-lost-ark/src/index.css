@@ -29,3 +29,7 @@ body {
 input {
   font-family: "Pretendard-Regular", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+pre {
+  white-space: pre-wrap;
+}

@@ -34,7 +34,7 @@ function App() {
 
   return (
     <Layout>
-      <main className="h-[1500px] pb-40">
+      <main className="pb-40">
           <div className="main-wrap flex flex-col py-10">
 
             <div className="flex justify-center items-center">
@@ -70,19 +70,19 @@ function App() {
               <section className="flex justify-center items-center my-20 tracking-tighter bg-[#15181d] py-20 my-0 mx-auto">
               <div className="mr-40 w-[500px] h-[578px] overflow-hidden rounded-lg"><img className="w-full h-full" src={chaData.data.CharacterImage} /></div>
               <div className="flex justify-center items-top pr-10">
-                <h3 className="text-red-500 text-6xl font-bold">{chaData.data.CharacterClassName}</h3><h4 className="text-cyan-400 text-6xl font-bold">{chaData.data.CharacterName}</h4><h5 className="text-yellow-400 text-levelSize font-bold">{chaData.data.ItemAvgLevel} </h5>
+                <h3 className="text-white text-2xl font-bold">{chaData.data.CharacterClassName}</h3><h4 className="text-white text-2xl font-bold">{chaData.data.CharacterName}</h4><h5 className="text-white text-2xl font-bold">{chaData.data.ItemAvgLevel} </h5>
               </div>
               </section>
               </>
               :
               ""
             }
-            <div className="flex">
+            <div className="flex flex-col">
             {
               eqData ?
               (
-                eqData.data.map((i, index) => {
-                    return <p>{i.Tooltip}</p>
+                eqData.data.map((i, idx) => {
+                    return <div className="flex" key={idx}><pre>{i.Tooltip}</pre></div>
                 })
               ) : ""
             }
